@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const db = require('./database/db')()
 
 const itemsRouter = require('./routes/items')
+const usersRouter = require('./routes/users')
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -20,7 +21,8 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/api/v1/items', itemsRouter);
+app.use('/api/v1/items', itemsRouter)
+app.use('/api/v1/users', usersRouter)
 
 app.use((req, res, next) => {
     const error = new Error('Not found')
