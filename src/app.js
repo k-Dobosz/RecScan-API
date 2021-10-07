@@ -4,6 +4,8 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const db = require('./database/db')()
 
+const itemsRouter = require('./routes/items')
+
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,6 +20,7 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use('/api/v1/items', itemsRouter);
 
 app.use((req, res, next) => {
     const error = new Error('Not found')
