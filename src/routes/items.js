@@ -4,6 +4,22 @@ const Item = require('../models/item')
 const User = require('../models/user')
 const router = express.Router()
 
+router.post('/', async (req, res) => {
+    if (req.body.barcode.length !== 13)
+        return res.status(400).send({
+            error: 'Barcode length have to be equal to 13'
+        })
+
+    const item = new Item(req.body)
+
+    try {
+        await item.save()
+        res.status(201).send(item)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
 router.get('/:barcode', auth, async (req, res) => {
     const barcode = req.params.barcode
 
@@ -23,6 +39,8 @@ router.get('/:barcode', auth, async (req, res) => {
         req.user.scans.concat({
             itemId: item._id
         })
+
+        req.user.points = req.user.points + 1
 
         req.user.save()
 
