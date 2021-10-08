@@ -26,20 +26,9 @@ router.get('/:barcode', auth, async (req, res) => {
 
         req.user.save()
 
-        // const result = await User.find({ _id: req.user._id }).exec()
-
-        // let gainedPoints = false
-
-        // if (result[0].points.length < 5) {
-        //     result[0].points = result[0].points + 1
-        //     result[0].save()
-        //     gainedPoints = true
-        // }
-
         res.status(200).send({
             barcode: item.barcode,
-            type: item.type,
-            gainedPoints
+            type: item.type
         })
     } catch (e) {
         res.status(500).send(e)
