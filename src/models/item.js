@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
 const itemSchema = mongoose.Schema({
+    name: {
+        type: String,
+        require: true,
+        lowercase: true
+    },
     barcode: {
         type: String,
         unique: true,
